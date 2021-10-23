@@ -14,7 +14,7 @@ https://suchonsite-server.herokuapp.com/
 
 All requests must be secure, i.e. `https`, not `http`.
 
-## Resource
+## API Documentation
 
 **Pattern 1: retrieve the information of all appointment** Return full list of people's information that have vaccination appointment
 

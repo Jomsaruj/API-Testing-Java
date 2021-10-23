@@ -29,13 +29,9 @@ brew install gradle
 
 ## Build test
 
-It is necessary to run all test file before generate coverage test report. Here is how to build `CoffeeMakerTest.java` and `RecipeTest.java` in one command
-
 ```
 gradle test
 ```
-
-## Generate test report
 
 After build all test file, you are now be able to generate JaCoCo test report.
 
@@ -55,11 +51,6 @@ https://suchonsite-server.herokuapp.com/
 ```    
 
 All requests must be secure, i.e. `https`, not `http`.
-
-| Status code	| Msg| Description   |
-|---|---|---|
-| 404 | Not Found |  occur when get extra param after /all |
-| 200 | OK |  occur when get successfully |
 
 ## API Documentation
 
@@ -112,6 +103,11 @@ Example response:
     }
 ]
 ```
+
+| Status code	| Msg| Description   |
+|---|---|---|
+| 404 | Not Found |  occur when get extra param after /all |
+| 200 | OK |  occur when get successfully |
 
 **Pattern 2: retrieve the information of peoples appointment by date**
 Return full list of people's information that have vaccination appointment in that day    

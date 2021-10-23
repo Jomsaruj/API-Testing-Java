@@ -14,6 +14,11 @@ https://suchonsite-server.herokuapp.com/
 
 All requests must be secure, i.e. `https`, not `http`.
 
+| Status code	| Msg| Description   |
+|---|---|---|
+| 404 | Not Found |  occur when get extra param after /all |
+| 200 | OK |  occur when get successfully |
+
 ## API Documentation
 
 **Pattern 1: retrieve the information of all appointment** Return full list of people's information that have vaccination appointment
@@ -96,3 +101,8 @@ Example response:
     "__v": 0
 }
 ```
+| Status code	| Msg| Description   |
+|---|---|---|
+| 404 | Not Found |  occur when get invalid param such as /people/by_date/10-July-2020 |
+| 202 | no date included |  occur when not get any date /people/by_date/ |
+| 200 | OK |  occur when get successfully |

@@ -3,6 +3,46 @@
 <img width="696" alt="ๅ" src="https://user-images.githubusercontent.com/59832457/138566349-c415733c-0747-4783-b67e-82a868de27f0.png">
 Test Summary generate by JaCoCo Test Report
 
+## Prerequisites
+
+```Java 8 JDK```
+
+To install Java, download the **JDK** installer from: 
+  http://www.oracle.com/technetwork/java/javase/downloads/index.html
+
+For those who not have `gradle` install in your computer. Please do so
+
+Installing with a package manager
+
+SDKMAN! is a tool for managing parallel versions of multiple Software Development Kits on most Unix-like systems (macOS, Linux, Cygwin, Solaris and FreeBSD). 
+
+```
+sdk install gradle
+```
+`Homebrew` is "the missing package manager for macOS".
+
+```
+brew install gradle
+```
+
+## Build test
+
+It is necessary to run all test file before generate coverage test report. Here is how to build `CoffeeMakerTest.java` and `RecipeTest.java` in one command
+
+```
+gradle test
+```
+
+## Generate test report
+
+After build all test file, you are now be able to generate JaCoCo test report.
+
+```
+gradle jacocoTestReport
+```
+
+you can now see the coverage report at `index.html` in build directory
+
 ## About
 
 Here are some test cases to test Suchon’s Site web application API. This API is a JSON-based API. All requests are made to endpoints beginning:   

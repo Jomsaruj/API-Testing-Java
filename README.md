@@ -45,7 +45,7 @@ gradle jacocoTestReport
 
 you can now see the coverage report at `index.html` in build directory
 
-## About
+## Testing Domain
 
 Here are some test cases to test Suchon’s Site web application API. This API is a JSON-based API. All requests are made to endpoints beginning:   
  

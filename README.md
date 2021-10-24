@@ -1,6 +1,6 @@
 # Suchon site API-Testing-Java by Saruj
 
-<img width="696" alt="ๅ" src="https://user-images.githubusercontent.com/59832457/138566349-c415733c-0747-4783-b67e-82a868de27f0.png">
+<img width="696" alt="1" src="https://user-images.githubusercontent.com/59832457/138586807-db82db2b-3784-4e25-b7cc-154949c46002.png">
 Test Summary generate by JaCoCo Test Report
 
 ## Prerequisites
@@ -143,4 +143,20 @@ Example response:
 |---|---|---|
 | 404 | Not Found |  occur when get invalid param such as /people/by_date/10-July-2020 |
 | 202 | no date included |  occur when not get any date /people/by_date/ |
+| 200 | OK |  occur when get successfully |
+
+**Pattern 3: retrieve the information from GOV and push to database
+
+This API end-point need to modify (may be chabge from POST to GET), but the objective of this route is to GET user information form GOV and then process it before store in our database.
+
+```
+POST https://suchonsite-server.herokuapp.com/getDataFromGov{{date}}
+```
+It is a POST request without body (that is the reason why we have to modify it)
+
+| Status code	| Msg| Description   |
+|---|---|---|
+| 401 | already have data in this date |  occur when get duplicate data from GOV |
+| 504 | gov status code != 200 | occur when unable to fetch information form GOV |
+| 202 | no date included |  occur when not get any date /getDataFromGov |
 | 200 | OK |  occur when get successfully |

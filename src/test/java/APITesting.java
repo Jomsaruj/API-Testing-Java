@@ -94,14 +94,14 @@ public class APITesting {
      * Test description: check whether or not GET by_date is fetch able.
      *
      * Given base url https://suchonsite-server.herokuapp.com
-     * When GET with param /people/by_date/23-10-2021 (valid date format)
+     * When GET with param /people/by_date/20-10-2021 (valid date format)
      * Then status code is 200 OK
      *
      * @throws IOException
      */
     @Test
     public void testGetUsersByDate() throws IOException {
-        String endPoint = base + "/people/by_date/23-10-2021";
+        String endPoint = base + "/people/by_date/20-10-2021";
         String reqMethod = "GET";
         HttpURLConnection connection = createRequest(reqMethod, endPoint);
         int responseCode = connection.getResponseCode();
@@ -112,6 +112,28 @@ public class APITesting {
 
     /**
      * Test Case ID: 3
+     *
+     * Test description: check whether or not GET by_date return 404 if user not exist.
+     *
+     * Given base url https://suchonsite-server.herokuapp.com
+     * When GET with param /people/by_date/31-10-3021 (not exist for sure)
+     * Then status code is 404 Not Found
+     *
+     * @throws IOException
+     */
+    @Test
+    public void testGetUsersByDate2() throws IOException {
+        String endPoint = base + "/people/by_date/31-10-3021";
+        String reqMethod = "GET";
+        HttpURLConnection connection = createRequest(reqMethod, endPoint);
+        int responseCode = connection.getResponseCode();
+        String responseMsg = connection.getResponseMessage();
+        assertEquals(404,responseCode);
+        assertEquals("Not Found",responseMsg);
+    }
+
+    /**
+     * Test Case ID: 4
      *
      * BUG - Expect 202 no date included, Actual 404 Not Found
      * Test Status: Fail
@@ -136,7 +158,7 @@ public class APITesting {
     }
 
     /**
-     * Test Case ID: 4
+     * Test Case ID: 5
      *
      * BUG - Expect 400 Not Found, Actual 200 OK
      * Test Status: Fail
@@ -161,7 +183,7 @@ public class APITesting {
     }
 
     /**
-     * Test Case ID: 5
+     * Test Case ID: 6
      *
      * Test description: check whether or not GET by_date is not accept any incorrect param format.
      *
@@ -183,7 +205,7 @@ public class APITesting {
     }
 
     /**
-     * Test Case ID: 6
+     * Test Case ID: 7
      *
      * BUG - Expect 400 Not Found, Actual 200 OK
      * Test Status: Fail
@@ -208,7 +230,7 @@ public class APITesting {
     }
 
     /**
-     * Test Case ID: 7
+     * Test Case ID: 8
      *
      * Test description: check whether or not GET all is not accept any param.
      *
@@ -229,9 +251,77 @@ public class APITesting {
         assertEquals("Not Found",responseMsg);
     }
 
+    /**
+     * Test Case ID: 9
+     *
+     * Test description: check whether or not /getDataFromGov/{date} return 202 if there are no date included.
+     *
+     * Given base url https://suchonsite-server.herokuapp.com
+     * When GET with param /getDataFromGov
+     * Then status code is 202 no date included
+     *
+     * @throws IOException
+     */
+    @Test
+    public void testGetDataFromGov1() throws IOException {
+        String endPoint = base + "/getDataFromGov";
+        String reqMethod = "POST";
+        HttpURLConnection connection = createRequest(reqMethod, endPoint);
+        int responseCode = connection.getResponseCode();
+        String responseMsg = connection.getResponseMessage();
+        assertEquals(202,responseCode);
+        assertEquals("no date included",responseMsg);
+    }
+
+    /**
+     * Test Case ID: 10
+     *
+     * Test description: check whether or not /getDataFromGov/10-20-2021 return 401 because we already have information
+     * about reservation on 10-20-2021 stored in our database.
+     *
+     * Given base url https://suchonsite-server.herokuapp.com
+     * When GET with param /getDataFromGov/10-20-2021
+     * Then status code is 401 already have data in this date.
+     *
+     * @throws IOException
+     */
+    @Test
+    public void testGetDataFromGov2() throws IOException {
+        String endPoint = base + "/getDataFromGov/10-20-2021";
+        String reqMethod = "POST";
+        HttpURLConnection connection = createRequest(reqMethod, endPoint);
+        int responseCode = connection.getResponseCode();
+        String responseMsg = connection.getResponseMessage();
+        assertEquals(401,responseCode);
+        assertEquals("already have data in this date",responseMsg);
+    }
+
+    /**
+     * Test Case ID: 11
+     *
+     * Test description: check whether or not /getDataFromGov/10-20-3021 return 504 gov status code != 200, because
+     * reservation on 10-20-3021 is not exist for sure.
+     *
+     * Given base url https://suchonsite-server.herokuapp.com
+     * When GET with param /getDataFromGov/10-20-3021
+     * Then status code is 504 gov status code != 200.
+     *
+     * @throws IOException
+     */
+    @Test
+    public void testGetDataFromGov3() throws IOException {
+        String endPoint = base + "/getDataFromGov/10-20-3021";
+        String reqMethod = "POST";
+        HttpURLConnection connection = createRequest(reqMethod, endPoint);
+        int responseCode = connection.getResponseCode();
+        String responseMsg = connection.getResponseMessage();
+        assertEquals(504,responseCode);
+        assertEquals("gov status code != 200",responseMsg);
+    }
+
     // ----------------------- Media type Testing ------------------------ //
     /**
-     * Test Case ID: 8
+     * Test Case ID: 12
      *
      * Test description: check whether or not GET all return JSON.
      *
@@ -251,7 +341,7 @@ public class APITesting {
 
     // ----------------------- JSON content Testing ------------------------ //
     /**
-     * Test Case ID: 9
+     * Test Case ID: 13
      *
      * Test description: check whether or not GET all return array that contain JSON objects inside.
      *
@@ -260,7 +350,6 @@ public class APITesting {
      * Then receive array that contain JSON objects inside
      *
      * @throws IOException
-     * @throws JSONException
      * @throws ParseException
      */
     @Test
@@ -278,7 +367,7 @@ public class APITesting {
     }
 
     /**
-     * Test Case ID: 10
+     * Test Case ID: 14
      *
      * Test description: check whether or not GET by_date return just 1 JSON object.
      *
@@ -287,7 +376,6 @@ public class APITesting {
      * Then receive only 1 JSON object
      *
      * @throws IOException
-     * @throws JSONException
      * @throws ParseException
      */
     @Test
@@ -304,7 +392,7 @@ public class APITesting {
     }
 
     /**
-     * Test Case ID: 11
+     * Test Case ID: 15
      *
      * Test description: check whether or not GET by_date only return information of that particular date.
      *
@@ -313,7 +401,6 @@ public class APITesting {
      * Then receive JSON object which key date has value "20-10-2021"
      *
      * @throws IOException
-     * @throws JSONException
      * @throws ParseException
      */
     @Test
@@ -328,7 +415,7 @@ public class APITesting {
     }
 
     /**
-     * Test Case ID: 12
+     * Test Case ID: 16
      *
      * Test description: check whether or not JSON object of each user contain all important key.
      *
@@ -338,7 +425,6 @@ public class APITesting {
      * reservation_id, timestamp, name, surname, birthdate, citizen_id, occupation, address
      *
      * @throws IOException
-     * @throws JSONException
      * @throws ParseException
      */
     @Test

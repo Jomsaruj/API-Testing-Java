@@ -145,7 +145,7 @@ Example response:
 | 202 | no date included |  occur when not get any date /people/by_date/ |
 | 200 | OK |  occur when get successfully |
 
-**Pattern 3: retrieve the information from GOV and push to database
+**Pattern 3: retrieve the information from GOV and push to database**
 
 This API end-point need to modify (may be chabge from POST to GET), but the objective of this route is to GET user information form GOV and then process it before store in our database.
 

@@ -7,13 +7,6 @@ See original repository [Suchon site](https://github.com/SuchonSite/Server)
 
 ## Prerequisites
 
-```
-Java 8 JDK
-```
-
-To install Java, download the **JDK** installer from: 
-  http://www.oracle.com/technetwork/java/javase/downloads/index.html
-
 For those who not have `gradle` install in your computer. Please do so
 
 Installing with a package manager

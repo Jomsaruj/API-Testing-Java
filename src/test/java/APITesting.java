@@ -94,14 +94,14 @@ public class APITesting {
      * Test description: check whether or not GET by_date is fetch able.
      *
      * Given base url https://suchonsite-server.herokuapp.com
-     * When GET with param /people/by_date/20-10-2021 (valid date format)
+     * When GET with param /people/by_date/11-11-2021 (valid date format)
      * Then status code is 200 OK
      *
      * @throws IOException
      */
     @Test
     public void testGetUsersByDate() throws IOException {
-        String endPoint = base + "/people/by_date/20-10-2021";
+        String endPoint = base + "/people/by_date/11-11-2021";
         String reqMethod = "GET";
         HttpURLConnection connection = createRequest(reqMethod, endPoint);
         int responseCode = connection.getResponseCode();
@@ -235,14 +235,14 @@ public class APITesting {
      * Test description: check whether or not GET all is not accept any param.
      *
      * Given base url https://suchonsite-server.herokuapp.com
-     * When GET with param /people/all/20-10-2021
+     * When GET with param /people/all/11-11-2021
      * Then status code is 404 Not Found
      *
      * @throws IOException
      */
     @Test
     public void testGetUsersByInvalidDateFormat4() throws IOException {
-        String endPoint = base + "/people/all/20-10-2021";
+        String endPoint = base + "/people/all/11-11-2021";
         String reqMethod = "GET";
         HttpURLConnection connection = createRequest(reqMethod, endPoint);
         int responseCode = connection.getResponseCode();
@@ -372,7 +372,7 @@ public class APITesting {
      * Test description: check whether or not GET by_date return just 1 JSON object.
      *
      * Given base url https://suchonsite-server.herokuapp.com
-     * When GET with param /people/by_date/20-10-2021
+     * When GET with param /people/by_date/11-11-2021
      * Then receive only 1 JSON object
      *
      * @throws IOException
@@ -380,7 +380,7 @@ public class APITesting {
      */
     @Test
     public void testCheckGetByDate() throws IOException, ParseException {
-        String endPoint = base + "/people/by_date/20-10-2021";
+        String endPoint = base + "/people/by_date/11-11-2021";
         String reqMethod = "GET";
 
         HttpURLConnection connection = createRequest(reqMethod, endPoint);
@@ -397,21 +397,21 @@ public class APITesting {
      * Test description: check whether or not GET by_date only return information of that particular date.
      *
      * Given base url https://suchonsite-server.herokuapp.com
-     * When GET with param /people/by_date/20-10-2021
-     * Then receive JSON object which key date has value "20-10-2021"
+     * When GET with param /people/by_date/11-11-2021
+     * Then receive JSON object which key date has value "11-11-2021"
      *
      * @throws IOException
      * @throws ParseException
      */
     @Test
     public void testCheckDateOfJsonObject() throws IOException, ParseException {
-        String endPoint = base + "/people/by_date/20-10-2021";
+        String endPoint = base + "/people/by_date/11-11-2021";
         String reqMethod = "GET";
 
         HttpURLConnection connection = createRequest(reqMethod, endPoint);
         InputStream inputStream = connection.getInputStream();
         JSONObject payload = InputStreamToJSON(inputStream);
-        assertEquals("20-10-2021", payload.get("date"));
+        assertEquals("11-11-2021", payload.get("date"));
     }
 
     /**
@@ -420,7 +420,7 @@ public class APITesting {
      * Test description: check whether or not JSON object of each user contain all important key.
      *
      * Given base url https://suchonsite-server.herokuapp.com
-     * When GET with param /people/by_date/20-10-2021
+     * When GET with param /people/by_date/11-11-2021
      * Then receive JSON which have list of user, and each user have at least
      * reservation_id, timestamp, name, surname, birthdate, citizen_id, occupation, address
      *
@@ -429,7 +429,7 @@ public class APITesting {
      */
     @Test
     public void testCheckImportantKeyOfJsonObject() throws IOException, ParseException {
-        String endPoint = base + "/people/by_date/20-10-2021";
+        String endPoint = base + "/people/by_date/11-11-2021";
         String reqMethod = "GET";
 
         HttpURLConnection connection = createRequest(reqMethod, endPoint);

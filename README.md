@@ -69,5 +69,3 @@ For GET by_date/{dd-mm-yyyy}
 | 204 | No Content |  No people in this date |
 | 406 | No date param included in request |  No date param included in request |
 | 200 | OK |  occur when get successfully |
-
-and 1 internal path - /getDataFormGov

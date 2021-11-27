@@ -49,3 +49,25 @@ All requests must be secure, i.e. `https`, not `http`.
 https://suchonsite-server.herokuapp.com/api-docs/#/
 
 ## What I have tested so far
+
+Now I have tested only 2 API path
+
+<img width="629" alt="1" src="https://user-images.githubusercontent.com/59832457/143680993-3ea070be-bb03-4094-869b-7d0471e99f64.png">
+
+For GET people/all
+
+| Status code	| Msg| Description   |
+|---|---|---|
+| 404 | Not Found |  occur when get invalid param such as /people/by_date/10-July-2020 |
+| 200 | OK |  occur when get successfully |
+
+For GET by_date/{dd-mm-yyyy}
+
+| Status code	| Msg| Description   |
+|---|---|---|
+| 404 | Not Found |  occur when get invalid param such as /people/by_date/10-July-2020 |
+| 204 | No Content |  No people in this date |
+| 406 | No date param included in request |  No date param included in request |
+| 200 | OK |  occur when get successfully |
+
+and 1 internal path - /getDataFormGov

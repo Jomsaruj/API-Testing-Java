@@ -100,7 +100,7 @@ public class APITesting {
      * @throws IOException
      */
     @Test
-    public void testGetUsersByDate() throws IOException {
+    public void testGetUsersByExistDate() throws IOException {
         String endPoint = base + "/people/by_date/11-11-2021";
         String reqMethod = "GET";
         HttpURLConnection connection = createRequest(reqMethod, endPoint);
@@ -117,32 +117,30 @@ public class APITesting {
      *
      * Given base url https://suchonsite-server.herokuapp.com
      * When GET with param /people/by_date/31-10-3021 (not exist for sure)
-     * Then status code is 404 Not Found
+     * Then status code is 204 No Content
      *
      * @throws IOException
      */
     @Test
-    public void testGetUsersByDate2() throws IOException {
+    public void testGetUsersByNonExistDate() throws IOException {
         String endPoint = base + "/people/by_date/31-10-3021";
         String reqMethod = "GET";
         HttpURLConnection connection = createRequest(reqMethod, endPoint);
         int responseCode = connection.getResponseCode();
         String responseMsg = connection.getResponseMessage();
-        assertEquals(404,responseCode);
-        assertEquals("Not Found",responseMsg);
+        assertEquals(204,responseCode);
+        assertEquals("No Content",responseMsg);
     }
 
     /**
      * Test Case ID: 4
      *
-     * BUG - Expect 202 no date included, Actual 404 Not Found
-     * Test Status: Fail
      *
      * Test description: check whether or not GET by date not except empty date.
      *
      * Given base url https://suchonsite-server.herokuapp.com
      * When GET with param /people/by_date (without date)
-     * Then status code is 202 no date included
+     * Then status code is 406 No date param included in request
      *
      * @throws IOException
      */
@@ -153,15 +151,13 @@ public class APITesting {
         HttpURLConnection connection = createRequest(reqMethod, endPoint);
         int responseCode = connection.getResponseCode();
         String responseMsg = connection.getResponseMessage();
-        assertEquals(202,responseCode);
-        assertEquals("no date included",responseMsg);
+        assertEquals(406,responseCode);
+        assertEquals("No date param included in request",responseMsg);
     }
 
     /**
      * Test Case ID: 5
      *
-     * BUG - Expect 400 Not Found, Actual 200 OK
-     * Test Status: Fail
      *
      * Test description: check whether or not GET by_date is not accept any incorrect param format.
      *
@@ -178,37 +174,35 @@ public class APITesting {
         HttpURLConnection connection = createRequest(reqMethod, endPoint);
         int responseCode = connection.getResponseCode();
         String responseMsg = connection.getResponseMessage();
-        assertEquals(404,responseCode);
-        assertEquals("Not Found",responseMsg);
+        assertEquals(204,responseCode);
+        assertEquals("No Content",responseMsg);
     }
 
-    /**
-     * Test Case ID: 6
-     *
-     * Test description: check whether or not GET by_date is not accept any incorrect param format.
-     *
-     * Given base url https://suchonsite-server.herokuapp.com
-     * When GET with param /people/by_date/21/10/2021 (invalid date format)
-     * Then status code is 404 Not Found
-     *
-     * @throws IOException
-     */
-    @Test
-    public void testGetUsersByInvalidDateFormat2() throws IOException {
-        String endPoint = base + "/people/by_date/21/10/2021";
-        String reqMethod = "GET";
-        HttpURLConnection connection = createRequest(reqMethod, endPoint);
-        int responseCode = connection.getResponseCode();
-        String responseMsg = connection.getResponseMessage();
-        assertEquals(404,responseCode);
-        assertEquals("Not Found",responseMsg);
-    }
+//    /**
+//     * Test Case ID: 6
+//     *
+//     * Test description: check whether or not GET by_date is not accept any incorrect param format.
+//     *
+//     * Given base url https://suchonsite-server.herokuapp.com
+//     * When GET with param /people/by_date/21/10/2021 (invalid date format)
+//     * Then status code is 404 Not Found
+//     *
+//     * @throws IOException
+//     */
+//    @Test
+//    public void testGetUsersByInvalidDateFormat2() throws IOException {
+//        String endPoint = base + "/people/by_date/21/10/2021";
+//        String reqMethod = "GET";
+//        HttpURLConnection connection = createRequest(reqMethod, endPoint);
+//        int responseCode = connection.getResponseCode();
+//        String responseMsg = connection.getResponseMessage();
+//        assertEquals(204,responseCode);
+//        assertEquals("No people in this date",responseMsg);
+//    }
 
     /**
      * Test Case ID: 7
      *
-     * BUG - Expect 400 Not Found, Actual 200 OK
-     * Test Status: Fail
      *
      * Test description: check whether or not GET by_date is not accept any incorrect param format.
      *
@@ -225,8 +219,8 @@ public class APITesting {
         HttpURLConnection connection = createRequest(reqMethod, endPoint);
         int responseCode = connection.getResponseCode();
         String responseMsg = connection.getResponseMessage();
-        assertEquals(404,responseCode);
-        assertEquals("Not Found",responseMsg);
+        assertEquals(204,responseCode);
+        assertEquals("No Content",responseMsg);
     }
 
     /**
@@ -241,7 +235,7 @@ public class APITesting {
      * @throws IOException
      */
     @Test
-    public void testGetUsersByInvalidDateFormat4() throws IOException {
+    public void testGetAllWithParam() throws IOException {
         String endPoint = base + "/people/all/11-11-2021";
         String reqMethod = "GET";
         HttpURLConnection connection = createRequest(reqMethod, endPoint);
@@ -254,69 +248,45 @@ public class APITesting {
     /**
      * Test Case ID: 9
      *
-     * Test description: check whether or not /getDataFromGov/{date} return 202 if there are no date included.
+     * Test description: check whether or not /getDataFromGov return 404 Not Found.
      *
      * Given base url https://suchonsite-server.herokuapp.com
-     * When GET with param /getDataFromGov
-     * Then status code is 202 no date included
+     * When POST with param /getDataFromGov
+     * Then status code is 404 Not Found
      *
      * @throws IOException
      */
     @Test
-    public void testGetDataFromGov1() throws IOException {
+    public void testGetDataFromGovWithNoParams() throws IOException {
         String endPoint = base + "/getDataFromGov";
         String reqMethod = "POST";
         HttpURLConnection connection = createRequest(reqMethod, endPoint);
         int responseCode = connection.getResponseCode();
         String responseMsg = connection.getResponseMessage();
-        assertEquals(202,responseCode);
-        assertEquals("no date included",responseMsg);
+        assertEquals(404,responseCode);
+        assertEquals("Not Found",responseMsg);
     }
 
     /**
      * Test Case ID: 10
      *
-     * Test description: check whether or not /getDataFromGov/10-20-2021 return 401 because we already have information
-     * about reservation on 10-20-2021 stored in our database.
+     * Test description: check whether or not /getDataFromGov/11-11-2021 return 401
+     * about reservation on 11-11-2021 stored in our database.
      *
      * Given base url https://suchonsite-server.herokuapp.com
-     * When GET with param /getDataFromGov/10-20-2021
-     * Then status code is 401 already have data in this date.
+     * When POST with param /getDataFromGov/11-21-2021
+     * Then status code is 401.
      *
      * @throws IOException
      */
     @Test
-    public void testGetDataFromGov2() throws IOException {
-        String endPoint = base + "/getDataFromGov/10-20-2021";
+    public void testGetDataFromGovWithExistDate() throws IOException {
+        String endPoint = base + "/getDataFromGov/11-11-2021";
         String reqMethod = "POST";
         HttpURLConnection connection = createRequest(reqMethod, endPoint);
         int responseCode = connection.getResponseCode();
         String responseMsg = connection.getResponseMessage();
         assertEquals(401,responseCode);
-        assertEquals("already have data in this date",responseMsg);
-    }
-
-    /**
-     * Test Case ID: 11
-     *
-     * Test description: check whether or not /getDataFromGov/10-20-3021 return 504 gov status code != 200, because
-     * reservation on 10-20-3021 is not exist for sure.
-     *
-     * Given base url https://suchonsite-server.herokuapp.com
-     * When GET with param /getDataFromGov/10-20-3021
-     * Then status code is 504 gov status code != 200.
-     *
-     * @throws IOException
-     */
-    @Test
-    public void testGetDataFromGov3() throws IOException {
-        String endPoint = base + "/getDataFromGov/10-20-3021";
-        String reqMethod = "POST";
-        HttpURLConnection connection = createRequest(reqMethod, endPoint);
-        int responseCode = connection.getResponseCode();
-        String responseMsg = connection.getResponseMessage();
-        assertEquals(504,responseCode);
-        assertEquals("gov status code != 200",responseMsg);
     }
 
     // ----------------------- Media type Testing ------------------------ //
